@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Error from './Error';
-const Form = () => {
+const Form = ({ saveSearch }) => {
   const [word, saveWord] = useState('');
   const [error, saveError] = useState(false);
 
@@ -11,6 +11,7 @@ const Form = () => {
       return;
     }
     saveError(false);
+    saveSearch(word);
   };
 
   return (
