@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
+import ListImages from './components/ListImages';
+
 function App() {
   const [search, saveSearch] = useState('');
+  const [images, saveImages] = useState([]);
 
   useEffect(() => {
     const getDataApi = async () => {
@@ -11,8 +14,7 @@ function App() {
       const url = `https://pixabay.com/api/?key=${key}&q=${search}&per_page=${imagesPerPage}`;
       const response = await fetch(url);
       const result = await response.json();
-      saveSearch(result.hits);
-      console.log(result.hits);
+      saveImages(result.hits);
     };
     getDataApi();
   }, [search]);
@@ -22,6 +24,9 @@ function App() {
       <div className="jumbotron">
         <p className="lead text-center">Images search</p>
         <Form saveSearch={saveSearch} />
+      </div>
+      <div className="row justify-content-center">
+        <ListImages images={images} />
       </div>
     </div>
   );
